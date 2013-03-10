@@ -26,8 +26,6 @@
 		<script language="javascript" type="text/javascript">
 		<!--
 		rolloverInit('link', '/img/link_over.jpg');
-		rolloverInit('email', '/img/email_over.jpg');
-		rolloverInit('web', '/img/web_over.jpg');
 		rolloverInit('delete', '/img/delete_over.jpg');
 		rolloverInit('undo', '/img/undo_over.jpg');
 		// -->
@@ -45,12 +43,6 @@
 					<div class="signature">
 						<a href="{{ siteroot }}topic?id={{ topic.key.id }}#{{ post.key.id }}" title="Permalink" onmouseover="rolloverOn('link', {{ post.key.id }});" onmouseout="rolloverOff();"><img align="right" id="link{{ post.key.id }}" src="/img/link.jpg" alt="Permalink" border="0" height="16" width="16"></a>
 
-						{% comment %}
-						{% if post.user_email %}
-							<a href="{{ siteroot }}email?post_id={{ post.key.id }}" title="Send private email" onmouseover="rolloverOn('email', {{ post.key.id }});" onmouseout="rolloverOff();"><img align="right" id="email{{ post.key.id }}" src="/img/email.jpg" alt="Send private email" border="0" height="16" width="16"></a>
-						{% endif %}
-						{% endcomment %}
-
 						{% if is_moderator %}
 							{% if post.is_deleted %}
 								<a href="{{ siteroot }}postundel?{{ post.key.id }}" title="Undelete Post" onmouseover="rolloverOn('undo', {{ post.key.id }});" onmouseout="rolloverOff();"><img align="right" id="undo{{ post.key.id }}" src="/img/undo.jpg" width="16" height="16" border="0" /></a>
@@ -58,11 +50,7 @@
 								<a href="{{ siteroot }}postdel?{{ post.key.id }}" title="Delete Post" onmouseover="rolloverOn('delete', {{ post.key.id }});" onmouseout="rolloverOff();"><img align="right" id="delete{{ post.key.id }}" src="/img/delete.jpg" width="16" height="16" border="0" /></a>
 							{% endif %}
 						{% endif %}
-						{% if post.user_homepage %}
-							<a href="{{ post.user_homepage }}">{{ post.user_name|striptags|escape }}</a>
-						{% else %}
-							{{ post.user_name|striptags|escape }}
-						{% endif %}
+						{{ post.user_name|striptags|escape }}
 						<span class="noIE">&nbsp;</span><br />
 						{{ post.created_on|date:"F jS, Y g:ia" }}
 
@@ -75,32 +63,27 @@
 				</div>
 			{% endfor %}
 
-			<div class="buttons">
-				{% if is_archived %}
-					<p><i>This topic is archived. No further replies will be accepted.</i></p>
-				{% endif %}
-
-				<a accesskey="t" href="{{ siteroot }}">
-					<img src="/img/topics.gif" alt="Other recent topics" border="0" height="14" width="13">
-					Other recent <u>t</u>opics
-				</a>
-
-				{% if not is_archived %}
-				<a accesskey="r" href="{{ siteroot }}post?id={{ topic.key.id }}">
-					<img src="/img/edit.gif" alt="Reply to this topic" border="0" height="14" width="13">
-					<u>R</u>eply to this topic
-				</a>
-				{% endif %}
-			</div>
+			{% if is_archived %}
+				<p><i>This topic is archived. No further replies will be accepted.</i></p>
+			{% else %}
+				{% if user %}
+  			<div class="buttons">
+  				<a accesskey="r" href="{{ siteroot }}post?id={{ topic.key.id }}">
+  					<img src="/img/edit.gif" alt="Reply to this topic" border="0" height="14" width="13">
+  					<u>R</u>eply to this topic
+  				</a>
+  			</div>
+  			{% else %}
+      		<div><br/>
+            {{ log_in_out }} to reply to this topic.
+          </div>
+        {% endif %}
+			{% endif %}
 		</div>
 	</td>
 </tr>
 </tbody>
 </table>
-<hr>
-<center>Powered by <a href="http://blog.kowalczyk.info/software/fofou">fofou</a> 
-(<b><font color="blue">Fo</font></b>rums <b><font color="blue">Fo</font></b>r Yo<b><font color="blue">u</font></b>,
-created by <a href="http://blog.kowalczyk.info">Krzysztof Kowalczyk</a>)</center>
 <br>
 
 {% if analytics_code %}

@@ -26,8 +26,6 @@
 	<td class="contents">
 	<div class="form">
 		<form action="post" method="post">
-		<input name="num1" value="{{ num1 }}" type="hidden">
-		<input name="num2" value="{{ num2 }}" type="hidden">
 
 		{% if prevTopicId %} 
 			<input name="TopicId" value="{{ prevTopicId }}" type="hidden">
@@ -38,15 +36,6 @@
 
 		<table class="form" cellspacing="0">
 			<tbody>
-			<tr>
-			<th><label for="Captcha">{{ num1 }} + {{ num2 }} is? (hint: {{ num3 }})</label></th>
-			<td colspan="2">
-				<input class="{{ captcha_class }}" size="60" maxlength="64" name="Captcha" id="Captcha" style="width: 39em;" value="{{ prevCaptcha }}" type="edit">
-					<div>Are you human? (sorry we have to ask). Tell us how much
-					is {{ num1 }} + {{ num2 }} by entering <b>{{ num3 }}</b> above.</div>
-					&nbsp;
-			</td>
-			</tr>
 			{% if not prevTopicId %} 
 			<tr>
 				<th><label for="Subject">Subject:</label></th>
@@ -75,25 +64,6 @@
 				</td>
 			</tr>
 			<tr>
-				<th>
-					<label for="Email">Email:</label>
-				</th>
-				<td colspan="2">
-					<input class="{{ email_class }}" size="60" maxlength="64" name="Email" id="Email" style="width: 29em;" value="{{ prevEmail|escape }}" type="edit">
-					<div style="width: 300px;">Allows other people to email you through our web site. Your address is never revealed.</div>
-					&nbsp;
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<label for="Url">Home Page:</label>
-				</th>
-				<td colspan="2">
-					<input class="Url" size="60" maxlength="128" name="Url" id="Url" style="width: 29em;" value="{{ prevUrl|escape }}" type="edit">
-					&nbsp;
-				</td>
-			</tr>
-			<tr>
 				<td>&nbsp;</td>
 				<td class="buttons" colspan="2">
 					<input accesskey="o" name="Ok" value="Ok" type="submit">
@@ -111,9 +81,5 @@
 </tbody>
 </table>
 <hr>
-<center>Powered by <a href="http://blog.kowalczyk.info/software/fofou">fofou</a> 
-(<b><font color="blue">Fo</font></b>rums <b><font color="blue">Fo</font></b>r Yo<b><font color="blue">u</font></b>,
-created by <a href="http://blog.kowalczyk.info">Krzysztof Kowalczyk</a>)</center>
-<br>
 </body>
 </html>
